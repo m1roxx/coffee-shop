@@ -8,30 +8,39 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject private var viewModel = AuthViewModel()
     @State private var email = ""
     @State private var password = ""
     
     var body: some View {
-        VStack {
-            TextField("Email", text: $email)
-                .textFieldStyle(.roundedBorder)
-                .autocapitalization(.none)
-            
-            SecureField("Password", text: $password)
-                .textFieldStyle(.roundedBorder)
-            
-            Button("Sign In") {
-                Task { await authViewModel.signIn(email: email, password: password) }
+        NavigationView {
+            VStack(spacing: 20) {
+                TextField("Email", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textInputAutocapitalization(.never)
+                
+                SecureField("Password", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    Button("Sign In") {
+                        viewModel.signIn(email: email, password: password)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                
+                if !viewModel.errorMessage.isEmpty {
+                    Text(viewModel.errorMessage)
+                        .foregroundColor(.red)
+                }
+                
+                NavigationLink("Create Account", destination: SignUpView())
             }
-            .buttonStyle(.borderedProminent)
             .padding()
-            
-            if !authViewModel.errorMessage.isEmpty {
-                Text(authViewModel.errorMessage)
-                    .foregroundColor(.red)
-            }
+            .navigationTitle("Coffee Shop")
         }
-        .padding()
     }
 }
+

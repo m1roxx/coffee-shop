@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject private var viewModel = AuthViewModel()
     
     var body: some View {
-        VStack {
-            Text("Welcome, \(authViewModel.user?.email ?? "Guest")!")
-                .font(.title)
-            
-            Button("Sign Out") {
-                authViewModel.signOut()
+        NavigationView {
+            VStack(spacing: 20) {
+                if let user = viewModel.user {
+                    Text("Welcome, \(user.name)")
+                        .font(.title2)
+                }
+                
+                Button("Sign Out", role: .destructive) {
+                    viewModel.signOut()
+                }
+                .buttonStyle(.borderedProminent)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.red)
+            .padding()
+            .navigationTitle("Coffee Shop")
         }
     }
 }
