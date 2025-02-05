@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.user != nil {
-                HomeView()
+                MainTabView()
             } else {
                 LoginView()
             }
