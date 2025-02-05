@@ -7,10 +7,19 @@
 
 import FirebaseFirestore
 
-struct Drink: Identifiable, Codable {
-    @DocumentID var id: String?
+// Drink Model
+struct Drink: Identifiable {
+    let id = UUID()
     let name: String
-    let price: Double
-    let imageUrl: String
     let description: String
+    let price: Double
+    let imageName: String
+    let category: DrinkCategory
+}
+
+enum DrinkCategory: String, CaseIterable {
+    case hot = "Hot Coffee"
+    case cold = "Cold Coffee"
+    case tea = "Tea"
+    case special = "Specials"
 }
