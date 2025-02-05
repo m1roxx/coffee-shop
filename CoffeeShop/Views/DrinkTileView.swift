@@ -1,11 +1,35 @@
 import SwiftUI
 
-// Drink Tile Component
 struct DrinkTileView: View {
+    
     let drink: Drink
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var favoritesViewModel: FavoritesViewModel
+    @EnvironmentObject var cartViewModel: CartViewModel
+    @State private var isFavorite: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            // Favorite Button Overlay
+            HStack {
+                Spacer()
+                Button(action: {
+                    guard let userId = authViewModel.user?.id else { return }
+                    Task {
+                        if isFavorite {
+                            await favoritesViewModel.removeFromFavorites(userId: userId, drinkId: drink.id ?? "")
+                        } else {
+                            await favoritesViewModel.addToFavorites(userId: userId, drinkId: drink.id ?? "")
+                        }
+                        isFavorite.toggle()
+                    }
+                }) {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .foregroundColor(.red)
+                }
+                .padding(8)
+            }
+            
             // Image
             Image(systemName: drink.imageName)
                 .font(.system(size: 40))
@@ -35,8 +59,18 @@ struct DrinkTileView: View {
             
             // Order Button
             Button(action: {
-                // Add order action here
-            }) {
+                guard let userId = authViewModel.user?.id, let drinkId = drink.id else {
+                    print("Debug: Missing userId or drinkId")
+                    return
+                }
+                Task {
+                    do {
+                        await cartViewModel.addToCart(userId: userId, drinkId: drinkId)
+                    } catch {
+                        print("Debug: Cart Add Error - \(error.localizedDescription)")
+                    }
+                }
+            }){
                 Text("Add to Order")
                     .font(.caption)
                     .fontWeight(.semibold)
@@ -55,5 +89,10 @@ struct DrinkTileView: View {
                 .fill(Color.white)
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
+        .onAppear {
+            guard let userId = authViewModel.user?.id, let drinkId = drink.id else { return }
+            isFavorite = favoritesViewModel.favoriteItems.contains(drinkId)
+        }
     }
 }
+

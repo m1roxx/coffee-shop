@@ -3,6 +3,8 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var authViewModel = AuthViewModel()
     @StateObject private var drinkViewModel = DrinkViewModel()
+    @StateObject private var favoritesViewModel = FavoritesViewModel()
+    @StateObject private var cartViewModel = CartViewModel()
     @State private var selectedCategory: DrinkCategory = .hot
     
     var filteredDrinks: [Drink] {
@@ -25,6 +27,14 @@ struct HomeView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
+                        
+                        // Load favorites and cart when user is available
+                        .onAppear {
+                            Task {
+                                await favoritesViewModel.loadFavorites(for: user.id ?? "")
+                                await cartViewModel.loadCart(for: user.id ?? "")
+                            }
+                        }
                     }
                     
                     // Categories
@@ -55,6 +65,9 @@ struct HomeView: View {
             })
             .navigationBarTitleDisplayMode(.inline)
         }
+        .environmentObject(authViewModel)
+        .environmentObject(favoritesViewModel)
+        .environmentObject(cartViewModel)
         .onChange(of: selectedCategory) { _ in
             Task {
                 await drinkViewModel.loadDrinksByCategory(selectedCategory)
