@@ -1,10 +1,3 @@
-//
-//  Drink.swift
-//  CoffeeShop
-//
-//  Created by Ilyas Nugmanov on 03.02.2025.
-//
-
 import FirebaseFirestore
 
 struct Drink: Identifiable, Codable {
@@ -12,7 +5,7 @@ struct Drink: Identifiable, Codable {
     let name: String
     let description: String
     let price: Double
-    let imageName: String
+    let imageURL: String 
     let category: DrinkCategory
     
     enum CodingKeys: String, CodingKey {
@@ -20,7 +13,7 @@ struct Drink: Identifiable, Codable {
         case name
         case description
         case price
-        case imageName
+        case imageURL
         case category
     }
 }

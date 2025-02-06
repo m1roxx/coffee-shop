@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A05BDFA42D54CC5E00D80C32 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A05BDFA32D54CC5E00D80C32 /* FirebaseStorage */; };
 		A0B6D6E62D4FE4BD0055F16B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A0B6D6E52D4FE4BD0055F16B /* FirebaseAnalytics */; };
 		A0B6D6E82D4FE4BD0055F16B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = A0B6D6E72D4FE4BD0055F16B /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		A0B6D6EA2D4FE4BD0055F16B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A0B6D6E92D4FE4BD0055F16B /* FirebaseAuth */; };
@@ -62,6 +63,7 @@
 				A0B6D6E62D4FE4BD0055F16B /* FirebaseAnalytics in Frameworks */,
 				A0B6D6FD2D4FEE4C0055F16B /* FirebaseFirestore in Frameworks */,
 				A0B6D6EA2D4FE4BD0055F16B /* FirebaseAuth in Frameworks */,
+				A05BDFA42D54CC5E00D80C32 /* FirebaseStorage in Frameworks */,
 				A0B6D6E82D4FE4BD0055F16B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +129,7 @@
 				A0B6D6E72D4FE4BD0055F16B /* FirebaseAnalyticsWithoutAdIdSupport */,
 				A0B6D6E92D4FE4BD0055F16B /* FirebaseAuth */,
 				A0B6D6FC2D4FEE4C0055F16B /* FirebaseFirestore */,
+				A05BDFA32D54CC5E00D80C32 /* FirebaseStorage */,
 			);
 			productName = CoffeeShop;
 			productReference = A07BE5C12D43861E0092BCB0 /* CoffeeShop.app */;
@@ -583,6 +586,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A05BDFA32D54CC5E00D80C32 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0B6D6E42D4FE4BD0055F16B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		A0B6D6E52D4FE4BD0055F16B /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A0B6D6E42D4FE4BD0055F16B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

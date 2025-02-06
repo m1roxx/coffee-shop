@@ -31,7 +31,7 @@ struct DrinkTileView: View {
             }
             
             // Image
-            Image(systemName: drink.imageName)
+            Image(systemName: drink.imageURL)
                 .font(.system(size: 40))
                 .foregroundColor(.brown)
                 .frame(width: 60, height: 60)
