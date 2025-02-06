@@ -1,5 +1,5 @@
-import SwiftUI
 
+import SwiftUI
 struct DrinkTileView: View {
     
     let drink: Drink
@@ -35,11 +35,11 @@ struct DrinkTileView: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
+                    .frame(width: 120, height: 120) // Увеличили размер с 60x60 до 120x120
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             } placeholder: {
                 ProgressView()
-                    .frame(width: 60, height: 60)
+                    .frame(width: 120, height: 120) // Также изменили размер placeholder
             }
             .padding(8)
             .background(
@@ -101,4 +101,3 @@ struct DrinkTileView: View {
         }
     }
 }
-

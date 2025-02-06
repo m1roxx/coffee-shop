@@ -24,47 +24,85 @@ struct CartView: View {
                 if cartViewModel.isLoading {
                     ProgressView()
                 } else if cartItems.isEmpty {
-                    Text("Cart is empty")
-                        .foregroundColor(.gray)
+                    VStack(spacing: 16) {
+                        Image(systemName: "cart")
+                            .font(.system(size: 50))
+                            .foregroundColor(.gray)
+                        Text("Your cart is empty")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                    }
                 } else {
                     ScrollView {
                         VStack(spacing: 16) {
                             ForEach(cartItems, id: \.0.id) { (drink, quantity) in
-                                HStack {
-                                    DrinkTileView(drink: drink)
-                                    
-                                    VStack {
-                                        Text("Quantity: \(quantity)")
-                                        
-                                        HStack {
-                                            Button("-") {
-                                                guard let userId = authViewModel.user?.id, let drinkId = drink.id else { return }
-                                                Task {
-                                                    await cartViewModel.updateQuantity(userId: userId, drinkId: drinkId, quantity: quantity - 1)
-                                                }
-                                            }
-                                            .padding(.horizontal, 8)
-                                            
-                                            Button("+") {
-                                                guard let userId = authViewModel.user?.id, let drinkId = drink.id else { return }
-                                                Task {
-                                                    await cartViewModel.updateQuantity(userId: userId, drinkId: drinkId, quantity: quantity + 1)
-                                                }
-                                            }
-                                            .padding(.horizontal, 8)
+                                CartItemView(
+                                    drink: drink,
+                                    quantity: quantity,
+                                    onQuantityDecrease: {
+                                        guard let userId = authViewModel.user?.id,
+                                              let drinkId = drink.id else { return }
+                                        Task {
+                                            await cartViewModel.updateQuantity(
+                                                userId: userId,
+                                                drinkId: drinkId,
+                                                quantity: quantity - 1
+                                            )
+                                        }
+                                    },
+                                    onQuantityIncrease: {
+                                        guard let userId = authViewModel.user?.id,
+                                              let drinkId = drink.id else { return }
+                                        Task {
+                                            await cartViewModel.updateQuantity(
+                                                userId: userId,
+                                                drinkId: drinkId,
+                                                quantity: quantity + 1
+                                            )
+                                        }
+                                    },
+                                    onRemove: {
+                                        guard let userId = authViewModel.user?.id,
+                                              let drinkId = drink.id else { return }
+                                        Task {
+                                            await cartViewModel.updateQuantity(
+                                                userId: userId,
+                                                drinkId: drinkId,
+                                                quantity: 0
+                                            )
                                         }
                                     }
+                                )
+                            }
+                            
+                            VStack(spacing: 16) {
+                                HStack {
+                                    Text("Total")
+                                        .font(.headline)
+                                    Spacer()
+                                    Text("$\(String(format: "%.2f", totalPrice))")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.brown)
+                                }
+                                .padding(.top)
+                                
+                                Button(action: {
+                                    // Implement checkout logic
+                                }) {
+                                    Text("Checkout")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color.brown)
+                                        .cornerRadius(12)
                                 }
                             }
-                            
-                            Text("Total: $\(String(format: "%.2f", totalPrice))")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                            
-                            Button("Checkout") {
-                                // Implement checkout logic
-                            }
-                            .buttonStyle(.borderedProminent)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         }
                         .padding()
                     }
