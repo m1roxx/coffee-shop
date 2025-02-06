@@ -7,10 +7,6 @@ struct HomeView: View {
     @StateObject private var cartViewModel = CartViewModel()
     @State private var selectedCategory: DrinkCategory = .hot
     
-    var filteredDrinks: [Drink] {
-        drinkViewModel.drinks.filter { $0.category == selectedCategory }
-    }
-    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -37,6 +33,15 @@ struct HomeView: View {
                         }
                     }
                     
+                    // Search Field
+                    InputField(
+                        title: "Search",
+                        placeholder: "Enter drink name or description",
+                        text: $drinkViewModel.searchText,
+                        icon: "magnifyingglass"
+                    )
+                    .padding(.horizontal)
+                    
                     // Categories
                     CategorySelectorView(selectedCategory: $selectedCategory)
                         .padding(.vertical)
@@ -49,7 +54,7 @@ struct HomeView: View {
                             GridItem(.flexible(), spacing: 16),
                             GridItem(.flexible(), spacing: 16)
                         ], spacing: 16) {
-                            ForEach(filteredDrinks) { drink in
+                            ForEach(drinkViewModel.filteredDrinks.filter { $0.category == selectedCategory }) { drink in
                                 DrinkTileView(drink: drink)
                             }
                         }
