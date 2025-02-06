@@ -24,9 +24,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-#Preview {
-    DrinkTileView(drink: Drink(id: "1", name: "Espresso", description: "Strong coffee", price: 3.5, imageName: "cup.and.saucer", category: .hot))
-        .environmentObject(AuthViewModel())
-        .environmentObject(FavoritesViewModel())
-        .environmentObject(CartViewModel())
-}

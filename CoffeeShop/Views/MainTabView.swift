@@ -1,8 +1,10 @@
 import SwiftUI
 
-// Main Tab View Container
 struct MainTabView: View {
-    @StateObject private var viewModel = AuthViewModel()
+    @StateObject private var authViewModel = AuthViewModel()
+    @StateObject private var cartViewModel = CartViewModel()
+    @StateObject private var drinkViewModel = DrinkViewModel()
+    @StateObject private var favoritesViewModel = FavoritesViewModel()
     @State private var selectedTab = 0
     
     var body: some View {
@@ -35,6 +37,10 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
-        .tint(.brown) // This will color the selected tab items
+        .tint(.brown)
+        .environmentObject(authViewModel)
+        .environmentObject(cartViewModel)
+        .environmentObject(drinkViewModel)
+        .environmentObject(favoritesViewModel)
     }
 }

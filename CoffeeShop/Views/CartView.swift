@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct CartView: View {
-    @StateObject private var authViewModel = AuthViewModel()
-    @StateObject private var cartViewModel = CartViewModel()
-    @StateObject private var drinkViewModel = DrinkViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var cartViewModel: CartViewModel
+    @EnvironmentObject var drinkViewModel: DrinkViewModel
     
     var cartItems: [(Drink, Int)] {
         drinkViewModel.drinks
@@ -21,7 +21,9 @@ struct CartView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if cartItems.isEmpty {
+                if cartViewModel.isLoading {
+                    ProgressView()
+                } else if cartItems.isEmpty {
                     Text("Cart is empty")
                         .foregroundColor(.gray)
                 } else {
@@ -41,6 +43,7 @@ struct CartView: View {
                                                     await cartViewModel.updateQuantity(userId: userId, drinkId: drinkId, quantity: quantity - 1)
                                                 }
                                             }
+                                            .padding(.horizontal, 8)
                                             
                                             Button("+") {
                                                 guard let userId = authViewModel.user?.id, let drinkId = drink.id else { return }
@@ -48,6 +51,7 @@ struct CartView: View {
                                                     await cartViewModel.updateQuantity(userId: userId, drinkId: drinkId, quantity: quantity + 1)
                                                 }
                                             }
+                                            .padding(.horizontal, 8)
                                         }
                                     }
                                 }
@@ -67,15 +71,11 @@ struct CartView: View {
                 }
             }
             .navigationTitle("Cart")
-            .onAppear {
+            .task {
                 guard let userId = authViewModel.user?.id else { return }
-                Task {
-                    await cartViewModel.loadCart(for: userId)
-                    await drinkViewModel.loadDrinks()
-                }
+                await cartViewModel.loadCart(for: userId)
+                await drinkViewModel.loadDrinks()
             }
-            .environmentObject(authViewModel)
-            .environmentObject(cartViewModel)
         }
     }
 }
