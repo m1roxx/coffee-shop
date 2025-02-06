@@ -27,7 +27,7 @@ struct CartView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "cart")
                             .font(.system(size: 50))
-                            .foregroundColor(.gray)
+                            .foregroundColor(.customDarkGreen)
                         Text("Your cart is empty")
                             .font(.headline)
                             .foregroundColor(.gray)
@@ -83,7 +83,7 @@ struct CartView: View {
                                     Text("$\(String(format: "%.2f", totalPrice))")
                                         .font(.title2)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.brown)
+                                        .foregroundColor(.customDarkGreen)
                                 }
                                 .padding(.top)
                                 
@@ -95,7 +95,7 @@ struct CartView: View {
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
                                         .padding()
-                                        .background(Color.brown)
+                                        .background(Color.customDarkGreen)
                                         .cornerRadius(12)
                                 }
                             }

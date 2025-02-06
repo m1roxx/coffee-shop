@@ -1,7 +1,5 @@
 import SwiftUI
 
-
-// Category Selector Component
 struct CategorySelectorView: View {
     @Binding var selectedCategory: DrinkCategory
     
@@ -19,11 +17,11 @@ struct CategorySelectorView: View {
                             .fontWeight(.medium)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
+                            .foregroundColor(selectedCategory == category ? .white : .gray)
                             .background(
                                 RoundedRectangle(cornerRadius: 20)
-                                    .fill(selectedCategory == category ? Color.brown : Color(.systemGray6))
+                                    .fill(selectedCategory == category ? Color.customDarkGreen : Color(.systemGray6))
                             )
-                            .foregroundColor(selectedCategory == category ? .white : .gray)
                     }
                 }
             }

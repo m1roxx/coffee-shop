@@ -66,7 +66,7 @@ struct HomeView: View {
                 authViewModel.signOut()
             }) {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .foregroundColor(.brown)
+                    .foregroundColor(.customDarkGreen)
             })
             .navigationBarTitleDisplayMode(.inline)
         }

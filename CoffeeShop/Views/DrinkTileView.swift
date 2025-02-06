@@ -1,7 +1,6 @@
-
 import SwiftUI
+
 struct DrinkTileView: View {
-    
     let drink: Drink
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var favoritesViewModel: FavoritesViewModel
@@ -10,7 +9,6 @@ struct DrinkTileView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Favorite Button Overlay
             HStack {
                 Spacer()
                 Button(action: {
@@ -30,16 +28,15 @@ struct DrinkTileView: View {
                 .padding(8)
             }
             
-            // Image
             AsyncImage(url: URL(string: drink.imageURL)) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 120, height: 120) // Увеличили размер с 60x60 до 120x120
+                    .frame(width: 120, height: 120)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             } placeholder: {
                 ProgressView()
-                    .frame(width: 120, height: 120) // Также изменили размер placeholder
+                    .frame(width: 120, height: 120)
             }
             .padding(8)
             .background(
@@ -47,7 +44,6 @@ struct DrinkTileView: View {
                     .fill(Color(.systemGray6))
             )
             
-            // Drink Info
             VStack(alignment: .leading, spacing: 4) {
                 Text(drink.name)
                     .font(.headline)
@@ -60,23 +56,16 @@ struct DrinkTileView: View {
                 Text("$\(String(format: "%.2f", drink.price))")
                     .font(.subheadline)
                     .fontWeight(.semibold)
-                    .foregroundColor(.brown)
+                    .foregroundColor(.customDarkGreen)
             }
             
-            // Order Button
             Button(action: {
-                guard let userId = authViewModel.user?.id, let drinkId = drink.id else {
-                    print("Debug: Missing userId or drinkId")
-                    return
-                }
+                guard let userId = authViewModel.user?.id,
+                      let drinkId = drink.id else { return }
                 Task {
-                    do {
-                        await cartViewModel.addToCart(userId: userId, drinkId: drinkId)
-                    } catch {
-                        print("Debug: Cart Add Error - \(error.localizedDescription)")
-                    }
+                    await cartViewModel.addToCart(userId: userId, drinkId: drinkId)
                 }
-            }){
+            }) {
                 Text("Add to Order")
                     .font(.caption)
                     .fontWeight(.semibold)
@@ -85,7 +74,7 @@ struct DrinkTileView: View {
                     .padding(.vertical, 8)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.brown)
+                            .fill(Color.customDarkGreen)
                     )
             }
         }
@@ -96,7 +85,8 @@ struct DrinkTileView: View {
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         )
         .onAppear {
-            guard let userId = authViewModel.user?.id, let drinkId = drink.id else { return }
+            guard let userId = authViewModel.user?.id,
+                  let drinkId = drink.id else { return }
             isFavorite = favoritesViewModel.favoriteItems.contains(drinkId)
         }
     }

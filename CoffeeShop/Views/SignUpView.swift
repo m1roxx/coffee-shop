@@ -80,7 +80,7 @@ struct SignUpView: View {
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.brown)
+                                    .fill(Color.primaryGreen)
                             )
                     }
                 }
@@ -97,7 +97,7 @@ struct SignUpView: View {
                     Text("Already have an account? ")
                         .foregroundColor(.gray) +
                     Text("Sign In")
-                        .foregroundColor(.brown)
+                        .foregroundColor(.accentGreen)
                         .fontWeight(.semibold)
                 }
                 .padding(.top)

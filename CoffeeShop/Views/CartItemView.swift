@@ -46,7 +46,7 @@ struct CartItemView: View {
                     Text("$\(String(format: "%.2f", drink.price))")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.brown)
+                        .foregroundColor(.primaryGreen)
                     
                     Spacer()
                     
@@ -54,7 +54,7 @@ struct CartItemView: View {
                     HStack(spacing: 12) {
                         Button(action: onQuantityDecrease) {
                             Image(systemName: "minus.circle.fill")
-                                .foregroundColor(.brown)
+                                .foregroundColor(.primaryGreen)
                         }
                         
                         Text("\(quantity)")
@@ -63,7 +63,7 @@ struct CartItemView: View {
                         
                         Button(action: onQuantityIncrease) {
                             Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.brown)
+                                .foregroundColor(.primaryGreen)
                         }
                     }
                 }

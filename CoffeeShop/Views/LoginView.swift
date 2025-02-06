@@ -13,7 +13,7 @@ struct LoginView: View {
                     VStack(spacing: 15) {
                         Image(systemName: "cup.and.saucer.fill")
                             .font(.system(size: 60))
-                            .foregroundColor(.brown)
+                            .foregroundColor(.primaryGreen)
                         
                         Text("Welcome Back!")
                             .font(.title)
@@ -80,7 +80,7 @@ struct LoginView: View {
                                 .padding()
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(Color.brown)
+                                        .fill(Color.primaryGreen)
                                 )
                         }
                     }
@@ -99,7 +99,7 @@ struct LoginView: View {
                         Text("Don't have an account? ")
                             .foregroundColor(.gray) +
                         Text("Create one")
-                            .foregroundColor(.brown)
+                            .foregroundColor(.accentGreen)
                             .fontWeight(.semibold)
                     }
                     .padding(.top)
