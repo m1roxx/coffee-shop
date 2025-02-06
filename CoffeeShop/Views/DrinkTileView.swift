@@ -31,15 +31,21 @@ struct DrinkTileView: View {
             }
             
             // Image
-            Image(systemName: drink.imageURL)
-                .font(.system(size: 40))
-                .foregroundColor(.brown)
-                .frame(width: 60, height: 60)
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.systemGray6))
-                )
+            AsyncImage(url: URL(string: drink.imageURL)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            } placeholder: {
+                ProgressView()
+                    .frame(width: 60, height: 60)
+            }
+            .padding(8)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.systemGray6))
+            )
             
             // Drink Info
             VStack(alignment: .leading, spacing: 4) {
