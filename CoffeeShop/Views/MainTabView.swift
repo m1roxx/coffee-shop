@@ -37,7 +37,7 @@ struct MainTabView: View {
                 }
                 .tag(3)
         }
-        .tint(.brown)
+        .tint(.customDarkGreen)
         .environmentObject(authViewModel)
         .environmentObject(cartViewModel)
         .environmentObject(drinkViewModel)
