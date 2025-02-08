@@ -22,7 +22,7 @@ struct ProfileView: View {
                     
                     VStack(spacing: 15) {
                         Group {
-                            NavigationLink(destination: Text("Order History")) {
+                            NavigationLink(destination: OrderHistoryView()) {
                                 ProfileRowView(
                                     icon: "clock",
                                     title: "Order History",

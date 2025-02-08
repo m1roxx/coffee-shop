@@ -23,6 +23,10 @@ struct CoffeeShopApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(AuthViewModel()) // Для аутентификации
+                .environmentObject(CartViewModel()) // Для корзины
+                .environmentObject(DrinkViewModel()) // Для напитков
+                .environmentObject(OrderViewModel()) // Для заказов
         }
     }
 }

@@ -4,6 +4,7 @@ struct CartView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var cartViewModel: CartViewModel
     @EnvironmentObject var drinkViewModel: DrinkViewModel
+    @EnvironmentObject var orderViewModel: OrderViewModel // Добавляем OrderViewModel
     
     var cartItems: [(Drink, Int)] {
         drinkViewModel.drinks
@@ -17,6 +18,8 @@ struct CartView: View {
     var totalPrice: Double {
         cartItems.reduce(0) { $0 + $1.0.price * Double($1.1) }
     }
+    
+    @State private var showingAlert = false
     
     var body: some View {
         NavigationView {
@@ -88,7 +91,16 @@ struct CartView: View {
                                 .padding(.top)
                                 
                                 Button(action: {
-                                    // Implement checkout logic
+                                    Task {
+                                        guard let userId = authViewModel.user?.id else { return }
+                                        try? await orderViewModel.placeOrder(
+                                            userId: userId,
+                                            cart: cartViewModel.cartItems,
+                                            totalPrice: totalPrice
+                                        )
+                                        await cartViewModel.clearCart(userId: userId)
+                                        showingAlert = true
+                                    }
                                 }) {
                                     Text("Checkout")
                                         .font(.headline)
@@ -113,6 +125,9 @@ struct CartView: View {
                 guard let userId = authViewModel.user?.id else { return }
                 await cartViewModel.loadCart(for: userId)
                 await drinkViewModel.loadDrinks()
+            }
+            .alert("Order Placed!", isPresented: $showingAlert) {
+                Button("OK", role: .cancel) {}
             }
         }
     }

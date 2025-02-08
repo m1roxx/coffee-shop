@@ -23,4 +23,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartViewModel())
+        .environmentObject(DrinkViewModel())
+        .environmentObject(OrderViewModel())
 }
