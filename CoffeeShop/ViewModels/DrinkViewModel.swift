@@ -5,7 +5,7 @@ final class DrinkViewModel: ObservableObject {
     @Published private(set) var drinks: [Drink] = []
     @Published private(set) var isLoading = false
     @Published var errorMessage = ""
-    @Published var searchText: String = "" // Новое свойство для текста поиска
+    @Published var searchText: String = ""
     
     private let repository: DrinkRepositoryProtocol
     
@@ -34,7 +34,6 @@ final class DrinkViewModel: ObservableObject {
         isLoading = false
     }
     
-    // Вычисляемое свойство для фильтрации напитков
     var filteredDrinks: [Drink] {
         if searchText.isEmpty {
             return drinks

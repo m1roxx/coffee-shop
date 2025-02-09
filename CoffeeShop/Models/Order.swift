@@ -10,7 +10,7 @@ import FirebaseFirestore
 struct Order: Identifiable, Codable {
     @DocumentID var id: String?
     let userId: String
-    let items: [CartItem] // Представляет корзину как массив элементов
+    let items: [CartItem] 
     let totalPrice: Double
     let createdAt: Date
     

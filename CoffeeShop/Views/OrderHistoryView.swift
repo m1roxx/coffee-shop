@@ -3,7 +3,7 @@ import SwiftUI
 struct OrderHistoryView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var orderViewModel: OrderViewModel
-    @EnvironmentObject var drinkViewModel: DrinkViewModel // Для получения данных о напитках
+    @EnvironmentObject var drinkViewModel: DrinkViewModel
     
     @State private var orders: [Order] = []
     @State private var isLoading = false
@@ -43,7 +43,7 @@ struct OrderHistoryView: View {
                     isLoading = true
                     do {
                         orders = try await orderViewModel.fetchOrders(for: userId)
-                        await drinkViewModel.loadDrinks() // Загружаем данные о напитках
+                        await drinkViewModel.loadDrinks() 
                     } catch {
                         print("Error fetching orders: \(error)")
                     }

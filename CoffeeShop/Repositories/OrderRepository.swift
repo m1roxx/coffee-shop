@@ -22,7 +22,7 @@ final class OrderRepository: OrderRepositoryProtocol {
         
         let orderData: [String: Any] = [
             "userId": userId,
-            "items": items.map { ["drinkId": $0.drinkId, "quantity": $0.quantity] }, // Сохраняем как массив словарей
+            "items": items.map { ["drinkId": $0.drinkId, "quantity": $0.quantity] }, 
             "totalPrice": totalPrice,
             "createdAt": Timestamp(date: Date())
         ]

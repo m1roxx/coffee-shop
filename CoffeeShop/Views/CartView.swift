@@ -4,7 +4,7 @@ struct CartView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var cartViewModel: CartViewModel
     @EnvironmentObject var drinkViewModel: DrinkViewModel
-    @EnvironmentObject var orderViewModel: OrderViewModel // Добавляем OrderViewModel
+    @EnvironmentObject var orderViewModel: OrderViewModel 
     
     var cartItems: [(Drink, Int)] {
         drinkViewModel.drinks

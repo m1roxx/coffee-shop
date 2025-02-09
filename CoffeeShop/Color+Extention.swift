@@ -1,10 +1,10 @@
 import SwiftUI
 
 extension Color {
-    static let primaryGreen = Color(hex: "006400")  // Основной темно-зеленый
-    static let accentGreen = Color(hex: "228B22")   // Акцентный зеленый
-    static let lightGreen = Color(hex: "90EE90")    // Светлый зеленый для текста
-    static let darkGreen = Color(hex: "004225")     // Очень темный зеленый для фона
+    static let primaryGreen = Color(hex: "006400")  
+    static let accentGreen = Color(hex: "228B22")
+    static let lightGreen = Color(hex: "90EE90")
+    static let darkGreen = Color(hex: "004225")
     static let customDarkGreen = Color(hex: "004D40") 
     
     init(hex: String) {

@@ -9,7 +9,6 @@ struct CartItemView: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            // Изображение напитка
             AsyncImage(url: URL(string: drink.imageURL)) { image in
                 image
                     .resizable()
@@ -50,7 +49,6 @@ struct CartItemView: View {
                     
                     Spacer()
                     
-                    // Контроллер количества
                     HStack(spacing: 12) {
                         Button(action: onQuantityDecrease) {
                             Image(systemName: "minus.circle.fill")

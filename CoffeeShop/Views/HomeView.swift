@@ -24,7 +24,6 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                         
-                        // Load favorites and cart when user is available
                         .onAppear {
                             Task {
                                 await favoritesViewModel.loadFavorites(for: user.id ?? "")
